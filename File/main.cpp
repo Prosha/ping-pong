@@ -50,8 +50,8 @@ public:
     void KeyReset();
     void DrawField();
     void DrawScore();
-}settings;
-
+}
+settings;
 class ball{
 public:
     float x;
@@ -61,8 +61,8 @@ public:
     void move();
     void reflection();
     void draw();
-}ball;
-
+}
+ball;
 class reflector{
 public:
     float x,y;
@@ -79,20 +79,18 @@ public:
     void draw();
     void move();
     void care();
-}left,right;
-
+}
+left,right;
 void game::KeyReset(){
     left.vy = 0;
     right.vy = 0;
 }
-
 void game::KeyControl(){
     if((left.Up)&&(!left.Down))left.vy = PSpeedY;
     if((!left.Up)&&(left.Down))left.vy = -PSpeedY;
     if((right.Up)&&(!right.Down))right.vy = PSpeedY;
     if((!right.Up)&&(right.Down))right.vy = -PSpeedY;
 }
-
 void game::start_settings(){
     left.size = 200;
     right.size = 200;
@@ -103,7 +101,6 @@ void game::start_settings(){
     ball.x = 0;
     ball.y = 0;
 }
-
 void game::win(){
     if((ScoreL == 8)||(ScoreR == 8)){
         glutTimerFunc(2000,exit,0);
@@ -120,7 +117,6 @@ void game::win(){
         ScoreL++;
     }
 }
-
 void reflector::care(){
     if(hold){
         ball.vx = 0;
@@ -130,7 +126,6 @@ void reflector::care(){
         ball.y = y;
     }
 }
-
 void game::DrawField(){
     glColor3f(1,1,1);
     glVertex2f(-FieldSizeX - BorderT,-FieldSizeY - BorderT);
@@ -160,7 +155,6 @@ void game::DrawField(){
         glVertex2f(-MLineT,i - MLineT);
     }
 }
-
 void game::DrawScore(){
     glRasterPos2f(TextPosX - 50, TextPosY + 20);
     glutBitmapCharacter(GLUT_BITMAP_9_BY_15, '0' + ScoreL);
@@ -185,7 +179,6 @@ void game::DrawScore(){
         glutBitmapCharacter(GLUT_BITMAP_9_BY_15, 'R');
     }
 }
-
 void reflector::move(){
     y += vy;
     if(y < -settings.FieldSizeY + size/2){
@@ -197,7 +190,6 @@ void reflector::move(){
         vy = 0;
     }
 }
-
 void reflector::draw(){
     glColor3f(1,1,1);
     glVertex2f(x + settings.PThickness,y + size/2);
@@ -205,7 +197,6 @@ void reflector::draw(){
     glVertex2f(x - settings.PThickness,y - size/2);
     glVertex2f(x - settings.PThickness,y + size/2);
 }
-
 void ball::reflection(){
     if((y <= -settings.FieldSizeY)||(y >= settings.FieldSizeY))vy = -vy;
     if((x <= left.x+settings.PThickness)&&(fabs(double(y - left.y)) <= left.size/2 + fabs(vy))){
@@ -217,19 +208,16 @@ void ball::reflection(){
         vy += right.vy;
     }
 }
-
 void ball::draw(){
     glVertex2f(x+settings.BallSize,y+settings.BallSize);
     glVertex2f(x+settings.BallSize,y-settings.BallSize);
     glVertex2f(x-settings.BallSize,y-settings.BallSize);
     glVertex2f(x-settings.BallSize,y+settings.BallSize);
 }
-
 void ball::move(){
     x += vx;
     y += vy;
 }
-
 void keyboard(unsigned char key, int x,int y){
     switch(key){
         case 'q' :
@@ -258,7 +246,6 @@ void keyboard(unsigned char key, int x,int y){
             }
     }
 }
-
 void keyboardUp(unsigned char key, int x,int y){
     switch(key){
         case 'q' :
@@ -275,7 +262,6 @@ void keyboardUp(unsigned char key, int x,int y){
             break;
     }	
 }
-
 void Timer (int value){
     settings.win();
     settings.KeyControl();
@@ -301,7 +287,6 @@ void draw(){
     settings.DrawScore();
     glutSwapBuffers();
 }
-
 int main (int argc, char ** argv){
     srand(time(NULL));
     settings.start_settings();
