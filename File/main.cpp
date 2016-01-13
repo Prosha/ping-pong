@@ -1,4 +1,6 @@
-#include <GL/freeglut.h>
+#include <iostream>
+#include <openGl/gl.h>
+#include <GLut/glut.h>
 #include <time.h>
 #include <cmath>
 
